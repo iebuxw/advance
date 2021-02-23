@@ -52,6 +52,15 @@ class PostController extends Controller
      */
     public function actionView($id)
     {
+//        直接sql
+//        $post = Yii::$app->db->createCommand('select * from post')->queryOne();
+
+//        使用query
+
+//        使用ar，AtiveRecord 是继承自Model的
+//        $post = Post::findOne($id)->toArray();
+//        $post = Post::findAll([]);
+//        dd($post);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
