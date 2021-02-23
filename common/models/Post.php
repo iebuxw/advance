@@ -56,4 +56,10 @@ class Post extends \yii\db\ActiveRecord
             'author_id' => 'Author ID',
         ];
     }
+
+    // 获取状态名称，status0与本表的status避免冲突
+    public function getStatus0()
+    {
+        return $this->hasOne(PostStatus::className(), ['id' => 'status']);
+    }
 }
