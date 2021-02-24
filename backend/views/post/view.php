@@ -38,10 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //            ['label'=> '状态2222', 'attribute' => 'status', 'value' => $model->status0->name],
             ['attribute' => 'status', 'value' => $model->status0->name],
             'create_time:datetime',
-            'update_time:datetime',
-//            'author_id',
-            ['attribute' => 'author_id', 'value' => $model->author->name],
+//            'update_time:datetime',
+            ['attribute' => 'update_time', 'value' => date('Y-m-d H:i:s', $model->update_time)],
+            'author_id',
+//            ['attribute' => 'author_id', 'value' => $model->author->name],
         ],
+//        'template' => '<tr><th style="width: 120px;">{label}</th><td>{value}</td></tr>',// 模板，改样式
+//        'options' => '',// 可设置整个表格的样式等
     ]) ?>
 
 </div>

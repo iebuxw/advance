@@ -57,7 +57,7 @@ class PostController extends Controller
 
 //        使用query
 
-//        使用ar，AtiveRecord 是继承自Model的
+//        使用ar，AtiveRecord 是继承自Model的。findOne、findAll、findBySql
 //        $post = Post::findOne($id)->toArray();
 //        $post = Post::findAll([]);
 //        dd($post);
