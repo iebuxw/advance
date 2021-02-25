@@ -62,4 +62,29 @@ class Post extends \yii\db\ActiveRecord
     {
         return $this->hasOne(PostStatus::className(), ['id' => 'status']);
     }
+
+    // 更新文章自动加更新时间
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->create_time = time();
+                $this->update_time = time();
+            } else {
+                $this->update_time = time();
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // aftersave 里面不要放业务逻辑,代码多了或者人不靠谱了，调试起来会很费劲。基本上用调用来发个消息啊更新个缓存啊之类的失败也没太大关系的那种逻辑
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+//        疑问：为什么id没有改变但也会记录到$changedAttributes
+//        Yii::error($changedAttributes);
+    }
 }

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Post;
 use common\models\PostSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -56,11 +57,20 @@ class PostController extends Controller
 //        $post = Yii::$app->db->createCommand('select * from post')->queryOne();
 
 //        使用query
+//        ->limit(1)->one() 建议加limit(1)来改善性能
 
+        $post = (new \yii\db\Query())
+            ->select(['title'])
+            ->from('post')
+//            ->where(['<>', 'status', 3])
+            ->limit(2)
+            ->indexBy('id')
+            ->column();
+//        dd($post);
 //        使用ar，AtiveRecord 是继承自Model的。findOne、findAll、findBySql
+//        Post::find  ===>  又回到query了
 //        $post = Post::findOne($id)->toArray();
 //        $post = Post::findAll([]);
-//        dd($post);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -95,6 +105,7 @@ class PostController extends Controller
     {
         $model = $this->findModel($id);
 
+        // save方法的流程：验证前、验证、验证后、保存前、保存、保存后
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
