@@ -55,4 +55,26 @@ class Comment extends \yii\db\ActiveRecord
             'post_id' => 'Post ID',
         ];
     }
+
+    // 获取状态名称，status0与本表的status避免冲突
+    public function getStatus0()
+    {
+        return $this->hasOne(CommentStatus::className(), ['id' => 'status']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'userid']);
+    }
+
+    public function getPost()
+    {
+        return $this->hasOne(Post::className(), ['id' => 'post_id']);
+    }
+
+    // 评论内容截取，属性转化
+    public function getShortContent()
+    {
+        return mb_strlen($this->content) > 10 ? mb_substr($this->content, 0, 10, 'utf-8') . '...' : $this->content;
+    }
 }
