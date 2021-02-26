@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'filterModel' => $searchModel,// 筛选，属性和表格对应
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'], //序列号
 
@@ -48,7 +48,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'update_time',
                 'format' => ['date', 'php:Y-m-d H:i:s'],
             ],
-            //'author_id',
+            [
+                'attribute' => 'author_name',
+                'label' => '作者',
+                'value' => 'author.nickname',// 展示转换
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

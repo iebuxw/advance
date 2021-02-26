@@ -53,7 +53,7 @@ class Post extends \yii\db\ActiveRecord
             'status' => '状态',
             'create_time' => '创建时间',
             'update_time' => '更新时间',
-            'author_id' => 'Author ID',
+            'author_id' => '作者',
         ];
     }
 
@@ -61,6 +61,11 @@ class Post extends \yii\db\ActiveRecord
     public function getStatus0()
     {
         return $this->hasOne(PostStatus::className(), ['id' => 'status']);
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(Adminuser::className(), ['id' => 'author_id']);
     }
 
     // 更新文章自动加更新时间
