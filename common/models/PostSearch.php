@@ -46,6 +46,11 @@ class PostSearch extends Post
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 2],// 分页
+            'sort' => [
+                'defaultOrder' => ['id' => SORT_DESC],// 默认排序
+                'attributes' => ['id', 'title'],// 可排序字段
+            ],
         ]);
 
         $this->load($params);
