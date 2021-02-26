@@ -72,6 +72,11 @@ class Comment extends \yii\db\ActiveRecord
         return $this->hasOne(Post::className(), ['id' => 'post_id']);
     }
 
+    public static function getPeddingCommentCount()
+    {
+        return self::find()->where(['status' => 1])->count();
+    }
+
     // 评论内容截取，属性转化
     public function getShortContent()
     {

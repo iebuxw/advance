@@ -54,7 +54,7 @@ class CommentSearch extends Comment
             'pagination' => ['pageSize' => 2],// 分页
             'sort' => [
                 'defaultOrder' => ['id' => SORT_DESC],// 默认排序
-                'attributes' => ['id', 'title'],// 可排序字段，排序也可在这里加
+                'attributes' => ['id', 'title', 'status'],// 可排序字段，排序也可在这里加
             ],
         ]);
 
@@ -91,6 +91,12 @@ class CommentSearch extends Comment
         $dataProvider->sort->attributes['username'] = [
             'asc' => ['user.username' => SORT_ASC],
             'desc' => ['user.username' => SORT_DESC],
+        ];
+
+        //待审核的排在前面
+        $dataProvider->sort->defaultOrder = [
+            'status' => SORT_ASC,
+            'id' => SORT_DESC,
         ];
 
         return $dataProvider;

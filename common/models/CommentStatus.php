@@ -30,6 +30,11 @@ class CommentStatus extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getNameMap()
+    {
+        return self::find()->select('name')->indexBy('id')->column();
+    }
+
     /**
      * {@inheritdoc}
      */

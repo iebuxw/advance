@@ -38,6 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => 'status0.name',// 展示转换
                 'filter' => \common\models\CommentStatus::find()->select('name')->orderBy('id')->indexBy('id')->column(),//下拉筛选
+                'contentOptions' => function($model){
+                    return 1 == $model->status ? ['class' => 'bg-danger'] : [];
+                }
             ],
 //            'create_time:datetime',
 // 日期格式化
@@ -60,7 +63,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'post.title',// 展示转换
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            // 加审核图标
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete} {approve}',
+                'buttons' => [
+                    'approve' => function($url, $model, $key){
+                        $options = [
+                            'title' => Yii::t('yii', '审核'),
+                            'aria-label' => Yii::t('yii', '审核'),
+                            'data-confirm' => Yii::t('yii', '你确定通过这条评论吗?'),
+                            'data-method' => 'post',
+                            'data-pjax' => '0',
+                        ];
+
+                        return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, $options);
+                    }
+                ],
+            ],
         ],
     ]); ?>
 

@@ -8,28 +8,30 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php $commentStatusModel = new \common\models\CommentStatus(); ?>
+
 <div class="comment-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
+<!--    <?//= $form->field($model, 'id')->textInput() ?>-->
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList($commentStatusModel->nameMap, ['prompt' => '请选择状态']) ?>
 
-    <?= $form->field($model, 'create_time')->textInput() ?>
+<!--    <?//= $form->field($model, 'create_time')->textInput() ?>-->
 
-    <?= $form->field($model, 'userid')->textInput() ?>
+<!--    <?//= $form->field($model, 'userid')->textInput() ?>-->
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+<!--    <?//= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>-->
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'post_id')->textInput() ?>
+<!--    <?//= $form->field($model, 'post_id')->textInput() ?>-->
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

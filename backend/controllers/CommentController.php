@@ -109,6 +109,16 @@ class CommentController extends Controller
         return $this->redirect(['index']);
     }
 
+    // 审核
+    public function actionApprove($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 2;
+        $model->save();
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Comment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
