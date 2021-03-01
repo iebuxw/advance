@@ -7,7 +7,7 @@ use yii\base\Model;
 /**
  * Login form
  */
-class LoginForm extends Model
+class AdminLoginForm extends Model
 {
     public $username;
     public $password;
@@ -32,6 +32,25 @@ class LoginForm extends Model
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => '用户名',
+            'nickname' => '昵称',
+            'password' => '密码',
+            'email' => '邮箱',
+            'profile' => '简介',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'rememberMe' => '记住密码',
+        ];
+    }
+
+    /**
      * Validates the password.
      * This method serves as the inline validation for password.
      *
@@ -43,7 +62,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {// 校验密码
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, '用户名或密码错误');
             }
         }
     }
@@ -65,12 +84,12 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return Adminuser|null
      */
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Adminuser::findByUsername($this->username);
         }
 
         return $this->_user;

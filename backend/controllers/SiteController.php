@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\AdminLoginForm;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -70,13 +71,13 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {//是否是游客
             return $this->goHome();
         }
 
         $this->layout = 'blank';
 
-        $model = new LoginForm();
+        $model = new AdminLoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
