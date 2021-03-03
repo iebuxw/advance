@@ -10,7 +10,7 @@ $this->title = '修改密码';
 $this->params['breadcrumbs'][] = ['label' => '管理员', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="adminuser-create">
+<div class="adminuser-resetpwd">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
