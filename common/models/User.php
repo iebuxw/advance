@@ -28,6 +28,11 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    public static $statusNames = [
+        self::STATUS_DELETED => '删除',
+        self::STATUS_INACTIVE => '未激活',
+        self::STATUS_ACTIVE => '激活',
+    ];
 
     /**
      * {@inheritdoc}
@@ -55,7 +60,32 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['email'], 'required'],
+            [['email'], 'unique'],
+            [['email'], 'email'],
+            [['username'], 'unique'],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => '用户名',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'email' => '邮箱',
+            'status' => '状态',
+            'created_at' => '注册时间',
+            'updated_at' => '修改时间',
+            'verification_token' => 'Verification Token',
+        ];
+    }
+
+    public function getStatusName()
+    {
+        return self::$statusNames[$this->status];
     }
 
     /**
