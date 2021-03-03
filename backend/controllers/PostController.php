@@ -5,8 +5,10 @@ namespace backend\controllers;
 use Yii;
 use common\models\Post;
 use common\models\PostSearch;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -20,11 +22,30 @@ class PostController extends Controller
      */
     public function behaviors()
     {
+        // 过滤器：过滤器是 控制器动作 执行之前或之后执行的对象，过滤器本质上是一类特殊的 行为
+        // ACF是一种通过yii\filters\AccessControl类来实现的简单授权，有两种角色 ？：未经认证的游客用户 @：已认证的用户
+        // verbs限制请求方式
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+//                'only' => ['login', 'logout', 'signup'],// 只对某些动作起作用，only 中没有列出的动作，将无条件获得授权
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view'],
+                        'allow' => true,
+                        'roles' => ['?'],//?代表游客
+                    ],
+                    [
+                        'actions' => ['logout', 'index', 'create', 'update'],
+                        'allow' => true,
+                        'roles' => ['@'],//@代表已认证用户
+                    ],
                 ],
             ],
         ];
@@ -83,6 +104,10 @@ class PostController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can('createPost')) {
+            throw new ForbiddenHttpException(' 对不起，你没有进行该操作的权限。');
+        }
+
         $model = new Post();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -103,6 +128,10 @@ class PostController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!Yii::$app->user->can('updatePost')) {
+            throw new ForbiddenHttpException(' 对不起，你没有进行该操作的权限。');
+        }
+
         $model = $this->findModel($id);
 
         // save方法的流程：验证前、验证、验证后、保存前、保存、保存后
@@ -124,6 +153,10 @@ class PostController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!Yii::$app->user->can('deletePost')) {
+            throw new ForbiddenHttpException(' 对不起，你没有进行该操作的权限。');
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
