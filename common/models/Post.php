@@ -89,7 +89,7 @@ class Post extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
-//        疑问：为什么id没有改变但也会记录到$changedAttributes
+//@todo        疑问：为什么id没有改变但也会记录到$changedAttributes
 //        Yii::error($changedAttributes);
     }
 }

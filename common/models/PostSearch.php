@@ -18,7 +18,7 @@ class PostSearch extends Post
     {
         return [
             [['id', 'status', 'create_time', 'update_time', 'author_id'], 'integer'],
-            [['title', 'content', 'tags', 'author_name'], 'safe'],// 问：author_name为什么要加在这里？
+            [['title', 'content', 'tags', 'author_name'], 'safe'],//@todo 问：author_name为什么要加在这里？
         ];
     }
 
@@ -58,7 +58,7 @@ class PostSearch extends Post
             ],
         ]);
 
-        $this->load($params);
+        $this->load($params);// 前台提交参数类似：PostSearch[id]、PostSearch[title]，可以使用load
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
