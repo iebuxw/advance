@@ -38,14 +38,21 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
+            'enablePrettyUrl' => true,//美化
+            'showScriptName' => false,//index.php
+//            'suffix' => '.html',//后缀
+            'rules'=>array(
+                // 详情
+                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                // id更新
+                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                // 其他
+                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+            ),
         ],
-        */
+
     ],
     'params' => $params,
 ];
