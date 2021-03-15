@@ -15,6 +15,9 @@ use yii\filters\VerbFilter;
  */
 class CommentController extends Controller
 {
+    // 您提交的数据无法被验证。 解决
+    public $enableCsrfValidation = false;
+
     /**
      * {@inheritdoc}
      */
