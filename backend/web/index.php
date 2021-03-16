@@ -1,8 +1,12 @@
 <?php
+error_reporting(E_ALL^E_NOTICE);
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
-require __DIR__ . '/../../helpers/functions.php';
+require __DIR__ . '/../source/functions.php';
+require __DIR__ . '/../source/CommonConst.php';
+require __DIR__ . '/../source/CommonDefine.php';
+require __DIR__ . '/../source/BizResult.php';
 
 require __DIR__ . '/../../vendor/autoload.php';
 require __DIR__ . '/../../vendor/yiisoft/yii2/Yii.php';
