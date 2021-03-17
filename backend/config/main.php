@@ -58,4 +58,9 @@ return [
 
     ],
     'params' => $params,// 全局访问的参数，代替硬编码，不过没有宏好用
+
+    //指定一个控制器 ID 到任意控制器类
+    'controllerMap' => [
+        'TestABC' => 'app\modules\admin\controllers\TestABCController'// 命名空间
+    ],
 ];

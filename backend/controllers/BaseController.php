@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\SimpleModel;
 use Yii;
+use yii\db\Exception;
 use yii\web\Controller;
 
 /**
@@ -11,7 +12,10 @@ use yii\web\Controller;
  */
 class BaseController extends Controller
 {
-    public $resp = [];
+    public $code = 'SUCCESS';
+    public $msg = '';
+    public $resp;
+    public $msgParams = [];
 
     // 获取参数
     public function getParam($key, $type = 'string', $default = '')
@@ -35,7 +39,7 @@ class BaseController extends Controller
         }
     }
 
-    function renderJson($errCode = 'SYS_SUCCESS', $msgFree = '', $retParams = [])
+    function renderJson($errCode = 'SUCCESS', $msgFree = '', $retParams = [])
     {
         $base_msg = \backend\source\ErrorCode::$msg;
         $code = isset($base_msg[$errCode]['code']) ? $base_msg[$errCode]['code'] : -1;
@@ -58,20 +62,27 @@ class BaseController extends Controller
         ];
     }
 
-    function renderExeJson($data)
+    function renderExeJson()
     {
-        if ($data instanceof \Exception) {
-            isset($data->data) && $data->data && $show_data = $data->data;
+        $db_error = false;
+        if ($this->resp instanceof Exception) {
+            \Yii::error($this->resp->getMessage());
+            $this->resp = null;
+            $this->code = 'DB_ERROR';
+            $db_error = true;
+        }
+
+        if (!$db_error && $this->resp instanceof \Exception) {
             $data = array(
-                'code'   => $data->getCode() ? $data->getCode() : '-1',
-                'msg'   => $data->getMessage(),// 数据库的后续优化
+                'code'   => $this->resp->getCode() ? $this->resp->getCode() : '-1',
+                'msg'   => $this->resp->getMessage(),// 数据库的后续优化
             );
         } else {
-            list($code, $msg) = \backend\source\ErrorCode::getMsg($data['code'] ?: 'SUCCESS', $data['freemsg'] ?: '', $data['params'] ?: []);
+            list($code, $msg) = \backend\source\ErrorCode::getMsg($this->code, $this->msg, $this->msgParams);
             $data = array(
                 'code'   => $code,
                 'msg'   => $msg,
-                'data'   => $data ?: [],
+                'data'   => $this->resp ?: [],
             );
         }
 
