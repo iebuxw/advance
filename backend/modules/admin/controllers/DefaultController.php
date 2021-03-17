@@ -78,6 +78,10 @@ class DefaultController extends BaseController
 
     public function actionIndex2()
     {
+//        dd(\Yii::$app->basePath);
+//        dd(DATE_TIME);
+//        dd(\Yii::getAlias('@bower'));
+//        dd(\Yii::t('yii', 'Home'));
         return $this->renderJson('DB_ERROR', '', ['aa' => '[自定义]']);
     }
 

@@ -12,7 +12,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
-    'timeZone'=>'Asia/Shanghai',
+//    'timeZone'=>'Asia/Shanghai',
     'language' =>'zh-CN',
     'components' => [
         'request' => [
@@ -46,7 +46,8 @@ return [
             'showScriptName' => false,//index.php
 //            'suffix' => '.html',//后缀
             'rules'=>array(
-                // 详情
+                // 详情  post/10  ===>  (controller参数为post，id参数为10)  ===>  post/view  且参数为id=10
+                // 参数设置格式为 <ParamName:RegExp>
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                 // id更新
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
@@ -56,5 +57,5 @@ return [
         ],
 
     ],
-    'params' => $params,
+    'params' => $params,// 全局访问的参数，代替硬编码，不过没有宏好用
 ];
