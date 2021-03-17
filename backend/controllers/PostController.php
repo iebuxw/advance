@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Post;
 use common\models\PostSearch;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -42,7 +43,7 @@ class PostController extends Controller
                         'roles' => ['?'],//?代表游客
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'update'],
+                        'actions' => ['logout', 'index', 'create', 'update', 'mypage'],
                         'allow' => true,
                         'roles' => ['@'],//@代表已认证用户
                     ],
@@ -176,5 +177,27 @@ class PostController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * 分页，page参数直接传即可
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function actionMypage()
+    {
+        $query = Post::find();
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 3,
+            'totalCount'      => $query->count(),
+        ]);
+
+        $countries = $query->select(['id'])->orderBy('title')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $countries;
     }
 }
