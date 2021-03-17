@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use backend\controllers\BaseController;
+use common\models\Post;
 use yii\web\Controller;
 
 /**
@@ -96,5 +97,89 @@ class DefaultController extends BaseController
 
 //        $res = ['aaa'];
         return $this->renderExeJson($res);
+    }
+
+    // ar 操作
+    public function actionIndex4()
+    {
+//        3步走
+//        通过 yii\db\ActiveRecord::find() 方法创建一个新的查询生成器对象；
+//        使用查询生成器的构建方法来构建你的查询；
+//        调用查询生成器的查询方法来取出数据到 Active Record 实例中。
+        $customer = Post::find()->where(['id' => 32])->one()->toArray();
+        $customer = Post::find()->where(['id' => 32])->all();
+        $customer = Post::find()->where(['id' => 32])->count();
+
+        // findOne 和 findAll
+        $customer = Post::findOne(32)->toArray();
+        $customers = Post::findAll([32, 33, 123, 124]);
+
+        // 返回全部
+        $customers = Post::find()->asArray()->all();
+
+        // 批量
+        // 每次获取 10 条客户数据，然后一条一条迭代它们
+//        foreach (Post::find()->each(10) as $post) {
+            // $customer 是个 `Customer` 对象
+//            print_r($post);
+//        }
+
+        // 保存，并且保存会进行验证，如果数据可信，则$post->save(false);即可
+//        $post = new Post();
+//        $post->title = 'James';
+//        $r = $post->save();
+//        dd($post->errors);
+//        dd($customers);
+
+        //  事物，会抛异常
+//        $post = Post::findOne(123);
+//        Post::getDb()->transaction(function($db) use ($post) {
+//            $post->id = 200;
+//            $post->save();
+//             ...其他 DB 操作...
+//        });
+    }
+
+    // where
+    public function actionIndex5()
+    {
+        $username = 1;
+        // 3种格式
+//        字符串格式，例如：'status=1' // 最好换成参数绑定的形式，$query->where('status=:status', [':status' => $status]);
+//          哈希格式，例如： ['status' => 1, 'type' => [2,4]]       // 等于条件
+//          操作符格式，例如：// 任意条件语句
+//          ['like', 'name', 'test']
+//          ['!=', 'id', 32]
+//          ['>', 'age', 10]
+//        ['between', 'id', 1, 10]
+        $customer = Post::find()
+            ->select(['id'])// 指定字段
+            ->where(['!=', 'id', 32])
+            ->andFilterWhere(['username' => $username])
+            ->andFilterCompare('value', '<=100')
+            ->orderBy(['id' => SORT_ASC, 'name' => SORT_DESC,])
+            ->groupBy(['id', 'status'])
+            ->limit(10)
+            ->offset(20)
+            ->join('LEFT JOIN', 'post', 'post.user_id = user.id')
+            ->asArray()
+            ->exists();// all、one、column、scalar、exists、count
+
+        // 注意asArray和toArray
+
+//        filterWhere() 和 where() 唯一的不同就在于，前者 将忽略空值(空字符串\空白\null\[])
+
+        //  追加条件 andWhere() 和 orWhere()， 你可以使用 andFilterWhere() 和 orFilterWhere()、andFilterCompare()
+//        andFilterCompare会智能地确定运算符：(<>|>=|>|<=|<|=)
+//        $query->andFilterCompare('value', '<=100');
+//        $query->andFilterCompare('name', 'John Doe');
+    }
+
+    public function actionIndex6()
+    {
+        // 增删改
+//        save、updateAll、insert、update、updateCounters
+//        deleteAll
+
     }
 }

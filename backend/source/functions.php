@@ -1,6 +1,7 @@
 <?php
 
-function dd($v){
+function dd($v)
+{
     if (empty($v)) {
         var_dump($v);
     } else {
