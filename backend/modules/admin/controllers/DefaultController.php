@@ -324,4 +324,23 @@ class DefaultController extends BaseController
         $result = ArrayHelper::merge($array1, $array2);
         dd($result);
     }
+
+    public function actionIndex8()
+    {
+        $a = \Yii::$app->mailer->compose()
+            ->setFrom('nicolas007@163.com')
+            ->setTo('ixiaowang@sina.cn')
+            ->setSubject('Message subject')
+            ->setTextBody('Plain text content')
+            ->setHtmlBody('<b>HTML content</b>')
+            ->send();
+//        dd($a);
+    }
+
+    public function actionIndex9()
+    {
+//        dd(\Yii::t('yii', 'Home'));
+//        dd(\Yii::t('app', 'app_hello'));
+        dd(\Yii::t('model', 'model_hello'));
+    }
 }
