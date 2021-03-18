@@ -88,5 +88,15 @@ scenario：场景
 	终端：一个运行于终端窗口或用以支撑整个应用的计划任务的终端命令应用。
 	Web API：提供一系列Web接口用以整合第三方应用。
 
+验证器类型：(搜索BooleanValidator)
+D:\wamp64\www\advance\vendor\yiisoft\yii2\validators\Validator.php
 
 
+待完善：
+更完美的RBAC
+Menu小部件
+redis
+memcache
+事件
+hook
+mq

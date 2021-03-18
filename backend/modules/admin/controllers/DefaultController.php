@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 use backend\controllers\BaseController;
 use common\models\Post;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 /**
@@ -240,6 +241,7 @@ class DefaultController extends BaseController
     {
         // 获取值
         $array = [];
+//        ArrayHelper::filter($array, ['a']); // array_filter可以获取多个
         ArrayHelper::getValue($array, 'foo.bar.name', '默认值');
         // 回调函数获取值
         $fullName = ArrayHelper::getValue($array, function ($user, $defaultValue) {
@@ -341,6 +343,21 @@ class DefaultController extends BaseController
     {
 //        dd(\Yii::t('yii', 'Home'));
 //        dd(\Yii::t('app', 'app_hello'));
-        dd(\Yii::t('model', 'model_hello'));
+//        dd(\Yii::t('model', 'model_hello'));
+//        dd(\Yii::$app->request->getUserHost());
+//        dd(\Yii::$aliases);
+//        dd(\Yii::$aliases);// 打印所有别名
+//        dd(\Yii::$classMap);
+//        dd(Url::home()); // /
+//        dd(Url::home(true));// http://myyii2test.com:82/
+//        dd(Url::home('https'));// https://myyii2test.com:82/
+//        dd(Url::base(true));// http://myyii2test.com:82
+//        dd(Url::toRoute(['product/view', 'id' => 42], true)); // /http://myyii2test.com:82/admin/product/view?id=42
+//        dd(Url::to(['product/view', 'id' => 42])); // /admin/product/view?id=42
+//        dd(\Yii::$app->controller->getRoute()); // 路由地址admin/default/index9
+//        dd(\Yii::$app->request); // 路由地址admin/default/index9
+//        dd(\Yii::$app->controller->module->id); // 模块id
+//        dd(\Yii::$app->controller->id); // 控制器id
+//        dd(\Yii::$app->controller->action->id); // 动作id
     }
 }

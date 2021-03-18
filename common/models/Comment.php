@@ -57,6 +57,8 @@ class Comment extends \yii\db\ActiveRecord
     }
 
     // 获取状态名称，status0与本表的status避免冲突
+    // $model->status0 会访问到这里，原因是AR继承了BaseObject，而BaseObject里有__set和__get
+    // 这就是属性概念
     public function getStatus0()
     {
         return $this->hasOne(CommentStatus::className(), ['id' => 'status']);
