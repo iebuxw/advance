@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use backend\controllers\BaseController;
 use common\models\Post;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 /**
@@ -233,5 +234,57 @@ class DefaultController extends BaseController
         }
 
         return $this->renderExeJson();
+    }
+
+    public function actionIndex7()
+    {
+        // 获取值
+        $array = [];
+        ArrayHelper::getValue($array, 'foo.bar.name', '默认值');
+        // 回调函数获取值
+        $fullName = ArrayHelper::getValue($array, function ($user, $defaultValue) {
+            return $user->firstName . ' ' . $user->lastName;
+        });
+
+        // 设定值
+        ArrayHelper::setValue($array, 'key.in', ['arr' => 'val']);
+
+        // 删除值，用得不多
+
+        // 检查键名的存在
+        // ArrayHelper::keyExists
+
+        // 获取列
+        $data = [
+            ['id' => '123', 'data' => 'abc'],
+            ['id' => '345', 'data' => 'def'],
+        ];
+        $ids = ArrayHelper::getColumn($data, 'id');
+
+        // 重建索引
+        $array = [
+            ['id' => '123', 'data' => 'abc', 'device' => 'laptop'],
+            ['id' => '345', 'data' => 'def', 'device' => 'tablet'],
+            ['id' => '345', 'data' => 'hgi', 'device' => 'smartphone'],
+        ];
+        $result = ArrayHelper::index($array, 'id');
+
+        // 建立哈希表
+        $array = [
+            ['id' => '123', 'name' => 'aaa', 'class' => 'x'],
+            ['id' => '124', 'name' => 'bbb', 'class' => 'x'],
+            ['id' => '345', 'name' => 'ccc', 'class' => 'y'],
+        ];
+
+        $result = ArrayHelper::map($array, 'id', 'name');
+        $result = ArrayHelper::map($array, 'id', 'name', 'class');// 分组
+
+        // 多维排序
+        $data = [
+            ['age' => 30, 'name' => 'Alexander'],
+            ['age' => 30, 'name' => 'Brian'],
+            ['age' => 19, 'name' => 'Barney'],
+        ];
+        ArrayHelper::multisort($data, ['age', 'name'], [SORT_ASC, SORT_DESC]);
     }
 }
