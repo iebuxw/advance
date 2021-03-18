@@ -286,5 +286,42 @@ class DefaultController extends BaseController
             ['age' => 19, 'name' => 'Barney'],
         ];
         ArrayHelper::multisort($data, ['age', 'name'], [SORT_ASC, SORT_DESC]);
+
+        // 数组合并
+        $array1 = [
+            'name' => 'Yii',
+            'version' => '1.1',
+            'ids' => [
+                1,
+                1,
+                'name' => 111111,
+            ],
+            'validDomains' => [
+                'example.com',
+                'www.example.com',
+            ],
+            'emails' => [
+                'admin' => 'admin@example.com',
+                'dev' => 'dev@example.com',
+            ],
+        ];
+
+        $array2 = [
+            'version' => '2.0',
+            'ids' => [
+                2,// 会合并
+                'name' => 33333333,// 会覆盖
+            ],
+            'validDomains' => new \yii\helpers\ReplaceArrayValue([// 替换
+                'yiiframework.com',
+                'www.yiiframework.com',
+            ]),
+            'emails' => [
+                'dev' => new \yii\helpers\UnsetArrayValue(),// 删除
+            ],
+        ];
+
+        $result = ArrayHelper::merge($array1, $array2);
+        dd($result);
     }
 }
