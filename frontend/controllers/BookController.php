@@ -93,6 +93,8 @@ class BookController extends Controller
 
         if ($model->name && $model::findOne(['name' => $model->name, 'is_delete' => \CommonConst::INACTIVE])) {
             exit("<script>alert('书名重复');window.history.back(-1);</script>");
+//            Yii::$app->session->setFlash('error', '书名重复');
+//            return $this->goBack();
         }
 
         if ($params && $model->save()) {
@@ -123,6 +125,8 @@ class BookController extends Controller
 
         if ($book && $book->id != $id) {
             exit("<script>alert('书名重复');window.history.back(-1);</script>");
+//            Yii::$app->session->setFlash('error', '书名重复');
+//            return $this->goBack();
         }
 
         if ($model->uid == $uid && $params && $model->save()) {

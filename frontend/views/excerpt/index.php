@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'uid',
             [
                 'attribute' => 'uname',
-                'label' => '会员',
+                'label' => '用户名',
                 'value' => 'user.username',// 展示转换
             ],
             [

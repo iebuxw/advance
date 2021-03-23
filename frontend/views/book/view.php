@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
 //            'uid',
-            ['attribute' => '会员', 'value' => $model->user->username],
+            ['attribute' => '用户名', 'value' => $model->user->username],
             'name',
             'author',
             'intro:ntext',
