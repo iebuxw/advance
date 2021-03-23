@@ -38,6 +38,18 @@ class SignupForm extends Model
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => '用户名',
+            'password' => '密码',
+            'rememberMe' => '记住密码',
+        ];
+    }
+
+    /**
      * Signs user up.
      *
      * @return bool whether the creating new account was successful and email was sent

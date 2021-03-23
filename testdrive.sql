@@ -206,4 +206,47 @@ CREATE TABLE `user`  (
   UNIQUE INDEX `password_reset_token`(`password_reset_token`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
+--图书表
+CREATE TABLE IF NOT EXISTS `book`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL COMMENT '书名',
+  `author` varchar(255) NOT NULL  COMMENT '作者',
+  `intro` text COMMENT '简介',
+  `is_delete` tinyint(3) DEFAULT 0 COMMENT '删除',
+  `created_at` int(11) DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) DEFAULT 0 COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 COMMENT '图书表';
+
+--摘抄
+CREATE TABLE IF NOT EXISTS `excerpt`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `content` text COMMENT '内容',
+  `page` int(11) DEFAULT 0 COMMENT '页码',
+  `chapter` varchar(255) DEFAULT '' COMMENT '章节',
+  `tags` varchar(255) DEFAULT '' COMMENT '标签',
+  `idea` text COMMENT '感悟',
+  `book_id` int(11) NOT NULL COMMENT '图书id',
+  `is_delete` tinyint(3) DEFAULT 0 COMMENT '删除',
+  `created_at` int(11) DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) DEFAULT 0 COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY(book_id) REFERENCES book(id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 COMMENT '摘抄表';
+
+--评论
+CREATE TABLE IF NOT EXISTS `discuss`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `excerpt_id` int(11) NOT NULL COMMENT '摘录id',
+  `content` text COMMENT '内容',
+  `is_delete` tinyint(3) DEFAULT 0 COMMENT '删除',
+  `created_at` int(11) DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) DEFAULT 0 COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY(excerpt_id) REFERENCES excerpt(id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 COMMENT '评论表';
+
 SET FOREIGN_KEY_CHECKS = 1;

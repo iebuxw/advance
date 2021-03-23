@@ -1,5 +1,6 @@
 <?php
 return [
+    'timeZone'=>'Asia/Shanghai',
     // 一般是路径别名 用getAlias()获取
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -47,7 +48,7 @@ return [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.163.com',  //每种邮箱的host配置不一样
                 'username' => 'nicolas007@163.com',
-                'password' => '********',
+                'password' => '19930621xw',
                 'port' => '25',
                 'encryption' => 'tls',
             ],

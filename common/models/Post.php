@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use phpDocumentor\Reflection\DocBlock\Tag;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * common是前后台公用，post模型放在common里
@@ -91,5 +93,35 @@ class Post extends \yii\db\ActiveRecord
         parent::afterSave($insert, $changedAttributes);
 //@todo        疑问：为什么id没有改变但也会记录到$changedAttributes
 //        Yii::error($changedAttributes);
+    }
+
+    public function getUrl()
+    {
+        return Yii::$app->urlManager->createUrl(['post/detail', 'id' => $this->id, 'title' => $this->title]);
+    }
+
+    public function getBeginning($len = 228)
+    {
+        $str = strip_tags($this->content);
+        $tmp_len = mb_strlen($str);
+        $str = mb_substr($str, 0, $len, 'utf-8');
+
+        return $str . ($tmp_len > $len  ? '...' : '');
+    }
+
+    public function getTagLinks()
+    {
+        $links = [];
+        $tags = ['文学', '历史'];
+        foreach ($tags as $tag) {
+            $links[] = Html::a(Html::encode($tag), ['post/index', 'PostFrontSearch[tags]' => $tag]);
+        }
+
+        return $links;
+    }
+
+    public function getCommentCount()
+    {
+        return Comment::find()->where(['post_id' => $this->id, 'status' => 2])->count();
     }
 }
