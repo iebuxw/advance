@@ -17,14 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'tags')->textInput(['maxlength' => true, 'placeholder' => '多个用英文逗号分隔']) ?>
+
     <?= $form->field($model, 'idea')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'page')->textInput() ?>
 
     <?= $form->field($model, 'chapter')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
-
 
 <!--    <?//= $form->field($model, 'book_id')->textInput() ?>-->
 

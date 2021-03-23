@@ -25,14 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'rememberMe')->checkbox()->label('用户名') ?>
 
-                <div style="color:#999;margin:1em 0">
-                    如果你忘了密码，你可以 <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+                <!--<div style="color:#999;margin:1em 0">
+                    如果你忘了密码，你可以 <?/*= Html::a('重置', ['site/request-password-reset']) */?>.
                     <br>
-                    需要新的验证电子邮件? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
-                </div>
+                    需要新的验证电子邮件? <?/*= Html::a('发送', ['site/resend-verification-email']) */?>
+                </div>-->
 
                 <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('登录', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
