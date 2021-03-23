@@ -80,7 +80,7 @@ class Book extends \yii\db\ActiveRecord
 
     public function getBookNames()
     {
-        return self::find()->select('name')->indexBy('id')->where(['is_delete' => \CommonConst::INACTIVE])->column();
+        return self::find()->select('name')->indexBy('id')->orderBy(['id' => SORT_DESC])->where(['is_delete' => \CommonConst::INACTIVE])->column();
     }
 
     public function getBeginning($len = 30)
