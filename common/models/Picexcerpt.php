@@ -103,4 +103,13 @@ class Picexcerpt extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'uid']);
     }
+
+    public function getBeginning($len = 40)
+    {
+        $str = $this->remark;
+        $tmp_len = mb_strlen($str);
+        $str = mb_substr($str, 0, $len, 'utf-8');
+
+        return $str . ($tmp_len > $len  ? '...' : '');
+    }
 }

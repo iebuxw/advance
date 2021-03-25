@@ -48,7 +48,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'tags',
-            'remark:ntext',
+//            'remark:ntext',
+            [
+                'attribute' => 'remark',
+                'value' => 'beginning',// 展示转换
+            ],
             [
                 'label' => '创建时间',// 不让搜索
                 'value' => 'created_at',
