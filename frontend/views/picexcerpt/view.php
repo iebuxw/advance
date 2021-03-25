@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pic-excerpt-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--    <h1><?//= Html::encode($this->title) ?>--><!--</h1>-->
 
     <p>
         <?= Html::a(Yii::t('app', '修改'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
 //            'uid',
             ['attribute' => '用户名', 'value' => $model->user->username],
+            ['attribute' => '书名', 'value' => $model->book->name],
 //            'url:url',
             [
                 'label' => '图片',
@@ -46,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'book_id',
 //            'created_at',
 //            'updated_at',
-            ['attribute' => '书名', 'value' => $model->book->name],
             ['attribute' => 'created_at', 'value' => date('Y-m-d H:i:s', $model->created_at)],
             ['attribute' => 'updated_at', 'value' => $model->updated_at?date('Y-m-d H:i:s', $model->updated_at):'-'],
         ],

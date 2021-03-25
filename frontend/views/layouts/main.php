@@ -40,7 +40,7 @@ AppAsset::register($this);
 //        ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => '图书', 'url' => ['/book/index']],
         ['label' => '摘录', 'url' => ['/excerpt/index']],
-        ['label' => '图片', 'url' => ['picexcerpt/index']],
+        ['label' => '图片', 'url' => ['/picexcerpt/index']],
 //        ['label' => '关于我们', 'url' => ['/site/about']],
 //        ['label' => '联系我们', 'url' => ['/site/contact']],
     ];
