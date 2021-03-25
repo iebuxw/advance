@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Picexcerpt */
+/* @var $recent_dis [] */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', '图片摘录'), 'url' => ['index']];
@@ -44,8 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'tags',
-//            'remark:ntext',
-            ['attribute' => 'remark', 'value' => getShortContent($model->remark)],
+            'remark:ntext',
 //            'book_id',
 //            'created_at',
 //            'updated_at',

@@ -254,13 +254,14 @@ CREATE TABLE IF NOT EXISTS `pic_excerpt`  (
 CREATE TABLE IF NOT EXISTS `discuss`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
-  `excerpt_id` int(11) NOT NULL COMMENT '摘录id',
+  `data_id` int(11) NOT NULL COMMENT '摘录id',
   `content` text COMMENT '内容',
   `is_delete` tinyint(3) DEFAULT 0 COMMENT '删除',
   `created_at` int(11) DEFAULT 0 COMMENT '创建时间',
   `updated_at` int(11) DEFAULT 0 COMMENT '修改时间',
   PRIMARY KEY (`id`),
-  FOREIGN KEY(excerpt_id) REFERENCES excerpt(id)
+  FOREIGN KEY(uid) REFERENCES user(id),
+  FOREIGN KEY(data_id) REFERENCES pic_excerpt(id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 COMMENT '评论表';
 
 SET FOREIGN_KEY_CHECKS = 1;
