@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
 <!--    <?//= $form->field($model, 'uid')->textInput() ?>-->
-    <?= $form->field($model, 'book_id')->dropDownList((new \common\models\Book())->bookNames, ['prompt' => '请选择']) ?>
+    <?= $form->field($model, 'book_id')->dropDownList((new \common\models\Book())->bookNames, ['prompt' => '--请选择--']) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 

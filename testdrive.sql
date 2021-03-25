@@ -236,6 +236,19 @@ CREATE TABLE IF NOT EXISTS `excerpt`  (
   FOREIGN KEY(book_id) REFERENCES book(id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 COMMENT '摘抄表';
 
+--图片摘抄
+CREATE TABLE IF NOT EXISTS `pic_excerpt`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `url` varchar(255) DEFAULT '' COMMENT '图片',
+  `remark` text COMMENT '备注',
+  `book_id` int(11) NOT NULL COMMENT '图书id',
+  `created_at` int(11) DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) DEFAULT 0 COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY(book_id) REFERENCES book(id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 COMMENT '图片摘抄';
+
 --评论
 CREATE TABLE IF NOT EXISTS `discuss`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,

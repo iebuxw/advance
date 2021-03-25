@@ -129,6 +129,8 @@ class BookController extends Controller
 //            return $this->goBack();
         }
 
+        $model->updated_at = time();
+
         if ($model->uid == $uid && $params && $model->save()) {
 //            return $this->redirect(['view', 'id' => $model->id]);
             return $this->redirect(['index']);
