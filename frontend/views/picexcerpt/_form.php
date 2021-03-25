@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
 
 <!--    <?//= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>-->
 
+    <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'remark')->textarea(['rows' => 6]) ?>
 
 <!--    <?//= $form->field($model, 'book_id')->textInput() ?>-->

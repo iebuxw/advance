@@ -18,7 +18,7 @@ class PicexcerptSearch extends Picexcerpt
     {
         return [
             [['id', 'uid', 'book_id', 'created_at', 'updated_at'], 'integer'],
-            [['url', 'remark', 'uname', 'bookname'], 'safe'],
+            [['url', 'remark', 'tags', 'uname', 'bookname'], 'safe'],
         ];
     }
 
@@ -84,7 +84,8 @@ class PicexcerptSearch extends Picexcerpt
         $query->andFilterWhere(['like', 'book.name', $this->bookname]);
 
         $query->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'remark', $this->remark]);
+            ->andFilterWhere(['like', 'remark', $this->remark])
+            ->andFilterWhere(['like', 'tags', $this->tags]);
 
         return $dataProvider;
     }

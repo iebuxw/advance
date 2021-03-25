@@ -128,7 +128,11 @@ class PicexcerptController extends Controller
     {
         $uid = Yii::$app->user->identity->getId();
         $model = $this->findModel($id);
-        $model->uid == $uid && $this->findModel($id)->delete();
+
+        if ($model->uid == $uid) {
+            delFile($model->url);// 删除文件
+            $this->findModel($id)->delete();
+        }
 
         return $this->redirect(['index']);
     }

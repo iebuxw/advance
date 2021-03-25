@@ -43,7 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($model->url, ["width" => "40%"]);
                 },
             ],
-            'remark:ntext',
+            'tags',
+//            'remark:ntext',
+            ['attribute' => 'remark', 'value' => getShortContent($model->remark)],
 //            'book_id',
 //            'created_at',
 //            'updated_at',

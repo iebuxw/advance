@@ -242,6 +242,7 @@ CREATE TABLE IF NOT EXISTS `pic_excerpt`  (
   `uid` int(11) NOT NULL,
   `url` varchar(255) DEFAULT '' COMMENT '图片',
   `remark` text COMMENT '备注',
+  `tags` varchar(255) DEFAULT '' COMMENT '标签',
   `book_id` int(11) NOT NULL COMMENT '图书id',
   `created_at` int(11) DEFAULT 0 COMMENT '创建时间',
   `updated_at` int(11) DEFAULT 0 COMMENT '修改时间',

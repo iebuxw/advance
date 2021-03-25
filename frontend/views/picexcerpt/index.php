@@ -47,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($model->url, ["width" => "60", "height" => "60", "class" => 'index_list_img']);
                 },
             ],
+            'tags',
             'remark:ntext',
             [
                 'label' => '创建时间',// 不让搜索

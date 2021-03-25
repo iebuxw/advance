@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\ExcerptSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '摘抄');
+$this->title = Yii::t('app', '摘录');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="excerpt-index">
