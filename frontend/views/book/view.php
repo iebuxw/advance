@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--    <h1><?//= Html::encode($this->title) ?>--><!--</h1>-->
 
     <p>
         <?= Html::a(Yii::t('app', '修改'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
