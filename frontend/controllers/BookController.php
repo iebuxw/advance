@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use frontend\components\MyBehavior;
+use frontend\components\User;
 use Yii;
 use common\models\Book;
 use common\models\BookSearch;
@@ -32,12 +34,12 @@ class BookController extends Controller
 //                'only' => ['login', 'logout', 'signup'],// 只对某些动作起作用，only 中没有列出的动作，将无条件获得授权
                 'rules' => [
                     [
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view', 'testbehav'],
                         'allow' => true,
                         'roles' => ['?'],//?代表游客
                     ],
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'testbehav'],
                         'allow' => true,
                         'roles' => ['@'],//@代表已认证用户
                     ],
@@ -173,5 +175,39 @@ class BookController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    // 测试行为，注意别写成了actionTestBehav，仅仅testbehav定位不到
+    // 可以注入的方式扩展组件的属性和方法
+    public function actionTestbehav()
+    {
+        $user = new User();
+        //$user对像附加行为，扩充功能
+        $user->attachBehavior('myBehavior', new MyBehavior());
+
+        $user->prop1 = 1;
+        var_dump($user->prop1);
+
+        // 使用方法foo
+        var_dump($user->foo());
+
+        exit();
+    }
+
+    // 测试行为，注意别写成了actionTestBehav，仅仅testbehav定位不到
+    // 可以注入的方式扩展组件的属性和方法
+    public function actionTestbehav2()
+    {
+        $user = new User();
+        //$user对像附加行为，扩充功能
+        $user->attachBehavior('myBehavior', new MyBehavior());
+
+        $user->prop1 = 1;
+        var_dump($user->prop1);
+
+        // 使用方法foo
+        var_dump($user->foo());
+
+        exit();
     }
 }

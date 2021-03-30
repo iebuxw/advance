@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use frontend\components\MyBehavior2;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "book".
@@ -28,6 +30,13 @@ class Book extends \yii\db\ActiveRecord
         return 'book';
     }
 
+    public function behaviors()
+    {
+        return [
+//            TimestampBehavior::className(),// 给created_at和updated_at自动赋值
+            MyBehavior2::className()
+        ];
+    }
     /**
      * {@inheritdoc}
      */
