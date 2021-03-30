@@ -33,4 +33,15 @@ class MyBehavior extends Behavior
         return 'bar';
     }
 
+    // 需要按事件绑定的方式来定义add，
+    // $this->on(self::EVENT_USER_LOGIN,['frontend\components\MyBehavior','add']) 代表静态调用，所以需要static
+    public static function add($event)
+    {
+        \Yii::error('我是MyBehavior->add，触发了，数据：' . var_export($event->data, true));
+    }
+
+    public static function send($event)
+    {
+        \Yii::error('我是MyBehavior->send，触发了');
+    }
 }

@@ -17,6 +17,18 @@ use yii\filters\VerbFilter;
  */
 class BookController extends Controller
 {
+    //	定义事件名字
+    const EVENT_USER_LOGIN = 'user_login';
+
+    public function beforeAction($action)
+    {
+        //绑定事件
+        $this->on(self::EVENT_USER_LOGIN,['frontend\components\MyBehavior','add'], ['name' => '张三']);
+        $this->on(self::EVENT_USER_LOGIN,['frontend\components\MyBehavior','send']);
+
+        return true;// 要有这句，不然走不下去了
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -34,7 +46,7 @@ class BookController extends Controller
 //                'only' => ['login', 'logout', 'signup'],// 只对某些动作起作用，only 中没有列出的动作，将无条件获得授权
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'testbehav'],
+                        'actions' => ['index', 'view', 'testbehav', 'testbehav3'],
                         'allow' => true,
                         'roles' => ['?'],//?代表游客
                     ],
@@ -208,6 +220,13 @@ class BookController extends Controller
         // 使用方法foo
         var_dump($user->foo());
 
+        exit();
+    }
+
+    // 测试自定义事件
+    public function actionTestbehav3()
+    {
+        $this->trigger(self::EVENT_USER_LOGIN);
         exit();
     }
 }
