@@ -43,6 +43,10 @@ class ExcerptController extends Controller
                     ],
                 ],
             ],
+            'ActionTimeFilter' => [
+                'class' => 'frontend\components\ActionTimeFilter'
+
+            ],
         ];
     }
 
