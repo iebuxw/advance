@@ -63,6 +63,11 @@ class Picexcerpt extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        // ...custom code here...
         list($ret, $file_name) = HcUploadFile::uploadFiles("Picexcerpt[url]");  //Artcile[thumb]存储的图片字段
 
         if($ret){
@@ -71,7 +76,17 @@ class Picexcerpt extends \yii\db\ActiveRecord
             Yii::error($file_name);
         }
 
-        return parent::beforeSave($insert);
+        return true;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        // 编辑且传了图，则删除原图
+        if (!$insert && isset($changedAttributes['url']) && $changedAttributes['url']) {
+            delFile($changedAttributes['url']);// 删除文件
+        }
     }
 
     public function upload()

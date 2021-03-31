@@ -32,8 +32,12 @@ return [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+//                    'categories' => ['rhythmk'],
+//                    'logFile' => '@app/runtime/logs/Mylog/requests.log',
+                    'levels' => ['error', 'warning', 'info'],
                     'logVars' => [],// 不记录参数
+                    "maxFileSize" =>  10240,// 10M
+                    "maxLogFiles" =>  10
                 ],
             ],
         ],
