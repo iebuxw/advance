@@ -12,7 +12,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'defaultRoute' => 'excerpt/index',
+    'defaultRoute' => 'picexcerpt/index',
     'language' =>'zh-CN',
     'components' => [
         'request' => [
