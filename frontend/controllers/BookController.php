@@ -272,8 +272,65 @@ class BookController extends Controller
         exit();
     }
 
-    public function booktesstAction()
+    public function actionBooktesst()
     {
         exit('测试独立动作，控制器重用， 或重构为扩展。');
+    }
+
+    // 测试动态关联查询
+    public function actionTestvarjoin()
+    {
+        $customer = Book::findOne(3);
+
+// SELECT * FROM `order` WHERE `customer_id` = 123 AND `subtotal` > 200 ORDER BY `id`
+        $orders = $customer->getPicExcerpts()
+            ->where(['>', 'id', 0])
+            ->orderBy('id')->asArray()
+            ->all();
+
+        dd($orders);
+    }
+
+    // 测试关联查询的即时加载with
+    public function actionTestvarjoinwith()
+    {
+        // 关联另外的写法，避免在foreach里循环
+        $customers = Book::find()
+//            ->with('picExcerpts')// 类似in
+            ->joinWith('picExcerpts')// 类似in
+            ->limit(100)->asArray()
+            ->all();
+
+        // 多层嵌套
+        $customers = Book::find()
+            ->with('picExcerpts.user')// 多层嵌套
+            ->limit(100)->asArray()
+            ->all();
+
+        // 关联即时加载
+        $customers = Book::find()
+            ->with(['picExcerpts' => function ($query) {
+                $query->andWhere(['remark' => 11]);// 动态加条件，但注意是左连接
+            }])
+            ->limit(100)->asArray()
+            ->all();
+
+        // 别名1
+        $query->joinWith([
+            'orders' => function ($q) {
+                $q->from(['o' => Order::tableName()]);
+            },
+        ]);
+
+        // 别名2=别名1
+        // 连接 `orders` 关联表并根据 `orders.id` 排序
+        $query->joinWith(['orders o'])->orderBy('o.id');
+
+        // 别名3，嵌套时候
+        $query->joinWith(['orders o' => function($q) {
+            $q->joinWith('product p');
+        }])->where('o.amount > 100');
+
+        dd($customers);
     }
 }

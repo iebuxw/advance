@@ -78,6 +78,16 @@ class Book extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Excerpts]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPicExcerpts()
+    {
+        return $this->hasMany(Picexcerpt::className(), ['book_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[User]].
      *
      * @return \yii\db\ActiveQuery
