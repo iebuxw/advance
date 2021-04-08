@@ -32,7 +32,7 @@ class PicexcerptController extends Controller
 //                'only' => ['login', 'logout', 'signup'],// 只对某些动作起作用，only 中没有列出的动作，将无条件获得授权
                 'rules' => [
                     [
-                        'actions' => ['index', 'view'],
+                        'actions' => ['view'],
                         'allow' => true,
                         'roles' => ['?'],//?代表游客
                     ],
