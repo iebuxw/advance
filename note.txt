@@ -38,8 +38,8 @@ Query Builder：链式操作吧，优化了DAO需要些sql
 数据库迁移：表结构等语句也进行追踪，并且可以回滚
     新增表：yii migrate/create create_book3 --fields="title:string,body:text"
     加字段：yii migrate/create add_position_to_book3 --fields="position:integer,memo:text"
-    加多个字段：yii migrate/create add_position_column_memo_column_to_book3_table --fields="position:integer,memo:text"
-    改字段：yii migrate/create alter_position_to_book3 --fields="position:string"
+    加多个字段：yii migrate/create add_position_column_memo_column_to_book3_table --fields="position:integer,memo:text"  #注意column写法
+    改字段：yii migrate/create modify_position_to_book3 --fields="position:string"
     加索引：
     改索引：
     插入数据：
