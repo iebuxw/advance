@@ -79,7 +79,8 @@ class BookController extends Controller
                         'roles' => ['?'],//?代表游客
                     ],
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'testbehav'],
+                        //注释代表都可访问
+//                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'testbehav'],
                         'allow' => true,
                         'roles' => ['@'],//@代表已认证用户
                     ],
@@ -261,6 +262,15 @@ class BookController extends Controller
 
         // 使用方法foo
         var_dump($user->foo());
+
+        exit();
+    }
+
+    // 测试行为静态附加自定义行为到AR，并调用自定义方法
+    public function actionTestbehav4()
+    {
+        $book = new Book();
+        $book->foo();
 
         exit();
     }

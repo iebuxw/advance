@@ -34,7 +34,7 @@ class Book extends \yii\db\ActiveRecord
     {
         return [
 //            TimestampBehavior::className(),// 给created_at和updated_at自动赋值
-            MyBehavior2::className()
+            MyBehavior2::className()//行为的静态附加
         ];
     }
     /**
