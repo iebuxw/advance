@@ -38,7 +38,7 @@ class PostController extends Controller
 //                'only' => ['login', 'logout', 'signup'],// 只对某些动作起作用，only 中没有列出的动作，将无条件获得授权
                 'rules' => [
                     [
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view', 'testupsert'],
                         'allow' => true,
                         'roles' => ['?'],//?代表游客
                     ],
@@ -199,5 +199,22 @@ class PostController extends Controller
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $countries;
+    }
+
+    //冲突更新，原子性，支持主键和唯一键
+    public function actionTestupsert()
+    {
+        $book = [
+            'uid' => 2,
+            'name' => '麦田里的守望者',
+            'author' => '塞林格',
+            'updated_at' => time()
+        ];
+
+//        建立在 PHP PDO 之上的数据访问层，直接执行sql语句
+        //如果直接调用 insert()、update()、delete()， 不需要绑定。自己写得sql需要
+        $db = Yii::$app->db->createCommand()->upsert('book', $book)->execute();
+        var_dump($db);
+        exit();
     }
 }

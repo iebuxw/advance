@@ -37,6 +37,23 @@ gii生成的文件如果不需要，记得要清理，以防产生漏洞
 Query Builder：链式操作吧，优化了DAO需要些sql
 数据库迁移：表结构等语句也进行追踪，并且可以回滚
 
+yii几种操作数据库的方式：
+1、yii\db\Command：pdo的封装，有insert、queryOne、query等，可直接执行sql，也可调用insert、update
+2、Yii::$app->db：返回yii\db\Command，有事务
+3、QueryBuilder：生成sql语句
+4、Query：会使用到QueryBuilder + createCommand，有one、all、exists等链式操作，不用写sql
+5、ActiveQuery：继承Query，多了joinWith、andOnCondition，大致与Query一样
+6、ActiveRecord：主要有 save、delete、findOne、findAll，(find、findBySql)，find和findBySql返回ActiveQuery对象
+	AR其实就是orm，类对应表，对象对应行，属性对应字段，及数据表和类进行映射
+
+关于注入，有以下5种条件，1、2能被注入，要小心；3、4推荐使用；5一般不用
+1、sql
+2、字符串格式，例如：'status=1'
+3、哈希格式，例如： ['status' => 1, 'type' => 2]
+4、操作符格式，例如：['like', 'name', 'test']
+5、对象格式，例如：new LikeCondition('name', 'LIKE', 'test')
+
+
 视图
 	小物件:主要用于表现数据的组件，例如日期
 	布局：header、footer
