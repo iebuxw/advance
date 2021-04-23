@@ -131,3 +131,25 @@ function getParamStr(array $params)
 
     return implode('&', $tmp);
 }
+
+function miniDebugTrace($limit = 10)
+{
+    $ret   = array();
+    $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit);
+    array_shift($trace);
+    foreach ($trace as $line) {
+        $file = isset($line['file']) ? $line['file'] : '';
+        $line_no = isset($line['line']) ? $line['line'] : '';
+        $class = isset($line['class']) ? $line['class'] : '';
+        $function = isset($line['function']) ? $line['function'] : '';
+//        $args = isset($line['args']) ? $line['args'] : '';
+        $ret[] = array(
+//            str_replace(Q_ROOT, '', $line['file']),
+            $file,
+            $line_no,
+            $class . '->' . $function . ' ' . $line_no,
+//            $args,
+        );
+    }
+    return $ret;
+}
