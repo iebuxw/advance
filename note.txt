@@ -36,6 +36,16 @@ gii生成的文件如果不需要，记得要清理，以防产生漏洞
 数据访问对象（DAO）：相当于原生PDO
 Query Builder：链式操作吧，优化了DAO需要些sql
 数据库迁移：表结构等语句也进行追踪，并且可以回滚
+    新增表：yii migrate/create create_book3 --fields="title:string,body:text"
+    加字段：yii migrate/create add_position_to_book3 --fields="position:integer,memo:text"
+    加多个字段：yii migrate/create add_position_column_memo_column_to_book3_table --fields="position:integer,memo:text"
+    改字段：yii migrate/create alter_position_to_book3 --fields="position:string"
+    加索引：
+    改索引：
+    插入数据：
+    列出迁移：
+    回滚：
+    执行指定：yii migrate/to m210423_114028_alter_position_to_book3
 
 yii几种操作数据库的方式：
 1、yii\db\Command：pdo的封装，有insert、queryOne、query等，可直接执行sql，也可调用insert、update
