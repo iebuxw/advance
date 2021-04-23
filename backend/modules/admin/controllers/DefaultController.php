@@ -79,6 +79,20 @@ class DefaultController extends BaseController
         return $this->renderExeJson($res);
     }
 
+    /**
+     * Renders the index view for the module
+     * @return string
+     */
+    public function actionIndex10()
+    {
+        $this->verifyParam3($_REQUEST, array(
+            ['name', 'string', 'length' => [3, 4]],
+            ['name', 'required'],
+        ));
+
+        exit('3333');
+    }
+
     public function actionIndex2()
     {
 //        dd(\Yii::$app->basePath);

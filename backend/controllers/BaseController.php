@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\SimpleModel;
 use Yii;
+use yii\base\DynamicModel;
 use yii\db\Exception;
 use yii\web\Controller;
 
@@ -91,7 +92,7 @@ class BaseController extends Controller
         return $data;
     }
 
-    // 验证1
+    // 验证1，来自web
     public static function verifyParam($array_param, $rules, $is_throw_exception = true, $errno = null)
     {
         $check = new SimpleModel();
@@ -141,5 +142,23 @@ class BaseController extends Controller
         }
 
         return $rt;
+    }
+
+    // 验证3
+    public function verifyParam3($array_param, $rules, $is_throw_exception = true, $errno = null)
+    {
+        foreach ($rules as $rule) {
+            if (!isset($array_param[$rule[0]])) {
+                $array_param[$rule[0]] = null;
+            }
+        }
+
+        $model = DynamicModel::validateData($array_param, $rules);
+
+        if ($model->hasErrors()) {
+            dd($model->getErrors());
+        } else {
+            dd('验证成功');
+        }
     }
 }
