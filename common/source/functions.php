@@ -132,7 +132,7 @@ function getParamStr(array $params)
     return implode('&', $tmp);
 }
 
-function miniDebugTrace($limit = 10)
+function miniDebugTrace($limit = 15)
 {
     $ret   = array();
     $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $limit);
